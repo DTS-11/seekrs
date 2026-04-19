@@ -3,7 +3,10 @@ name: Release
 on:
   push:
     tags:
-      - "v*"   # triggers when you push a tag like v0.1.0
+      - "v*"
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -11,24 +14,21 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false    # ← KEY FIX: one job failing won't cancel the rest
       matrix:
         include:
-          # Windows
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             binary: seekrs.exe
 
-          # macOS (Intel)
-          - os: macos-latest
+          - os: macos-13           # ← use macos-13 (Intel), more stable than macos-latest
             target: x86_64-apple-darwin
             binary: seekrs
 
-          # macOS (Apple Silicon M1/M2)
-          - os: macos-latest
+          - os: macos-latest       # ← Apple Silicon stays on latest
             target: aarch64-apple-darwin
             binary: seekrs
 
-          # Linux
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             binary: seekrs
@@ -48,16 +48,4 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: |
           cd target/${{ matrix.target }}/release
-          tar -czf seekrs-${{ matrix.target }}.tar.gz ${{ matrix.binary }}
-
-      - name: Package (Windows)
-        if: matrix.os == 'windows-latest'
-        run: |
-          cd target/${{ matrix.target }}/release
-          Compress-Archive -Path ${{ matrix.binary }} -DestinationPath seekrs-${{ matrix.target }}.zip
-
-      - name: Upload to GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            target/${{ matrix.target }}/release/seekrs-${{ matrix.target }}.*
+          tar -czf seekrs-$
