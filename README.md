@@ -14,7 +14,7 @@
 [![Rust](https://img.shields.io/badge/built%20with-Rust-orange?style=flat-square&logo=rust)](https://www.rust-lang.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![Crates.io](https://img.shields.io/crates/v/seekrs?style=flat-square)](https://crates.io/crates/seekrs)
-[![GitHub Release](https://img.shields.io/github/v/release/yourusername/seekrs?style=flat-square)](https://github.com/yourusername/seekrs/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/DTS-11/seekrs?style=flat-square)](https://github.com/DTS-11/seekrs/releases)
 
 [Installation](#installation) · [Features](#features) · [Usage](#usage) · [Examples](#examples) · [Contributing](#contributing)
 
@@ -55,7 +55,7 @@ Think of it as `find` + `grep` + `fzf` + `tree`, rolled into one fast Rust binar
 
 ### Option 1 — Download a pre-built binary (no Rust required)
 
-Go to the [Releases page](https://github.com/yourusername/seekrs/releases) and download the binary for your platform:
+Go to the [Releases page](https://github.com/DTS-11/seekrs/releases) and download the binary for your platform:
 
 | Platform | File |
 |---|---|
