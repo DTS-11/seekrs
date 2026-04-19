@@ -14,18 +14,18 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
-      fail-fast: false    # ← KEY FIX: one job failing won't cancel the rest
+      fail-fast: false
       matrix:
         include:
           - os: windows-latest
             target: x86_64-pc-windows-msvc
             binary: seekrs.exe
 
-          - os: macos-13           # ← use macos-13 (Intel), more stable than macos-latest
+          - os: macos-13
             target: x86_64-apple-darwin
             binary: seekrs
 
-          - os: macos-latest       # ← Apple Silicon stays on latest
+          - os: macos-latest
             target: aarch64-apple-darwin
             binary: seekrs
 
@@ -44,8 +44,27 @@ jobs:
       - name: Build
         run: cargo build --release --target ${{ matrix.target }}
 
+      - name: List release directory (debug)
+        run: ls target/${{ matrix.target }}/release/
+
       - name: Package (Linux/macOS)
         if: matrix.os != 'windows-latest'
         run: |
-          cd target/${{ matrix.target }}/release
-          tar -czf seekrs-$
+          tar -czf seekrs-${{ matrix.target }}.tar.gz \
+            -C target/${{ matrix.target }}/release \
+            ${{ matrix.binary }}
+
+      - name: Package (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          Compress-Archive `
+            -Path "target/${{ matrix.target }}/release/${{ matrix.binary }}" `
+            -DestinationPath "seekrs-${{ matrix.target }}.zip"
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            seekrs-${{ matrix.target }}.*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
