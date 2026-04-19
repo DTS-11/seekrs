@@ -2,6 +2,13 @@
 name = "seekrs"
 version = "0.1.0"
 edition = "2024"
+description = "🔍 A blazing-fast, colorful file search tool"
+license = "MIT"
+repository = "https://github.com/DTS-11/seekrs"
+homepage = "https://github.com/DTS-11/seekrs"
+readme = "README.md"
+keywords = ["search", "files", "fuzzy", "cli", "finder"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 chrono = { version="0.4.44", features=["serde"] }
