@@ -53,29 +53,69 @@ Think of it as `find` + `grep` + `fzf` + `tree`, rolled into one fast Rust binar
 
 ## Installation
 
-### Option 1 — Download a pre-built binary (no Rust required)
+### Windows
 
-Go to the [Releases page](https://github.com/DTS-11/seekrs/releases) and download the binary for your platform:
+1. Go to the [Releases page](https://github.com/DTS-11/seekrs/releases)
+2. Download `seekrs-x86_64-pc-windows-msvc.zip`
+3. Extract the `.zip` — you'll get `seekrs.exe`
+4. Open **PowerShell** or **Command Prompt** in the folder where `seekrs.exe` is:
+   - Hold `Shift` + `Right-click` inside the folder
+   - Select **"Open PowerShell window here"**
+5. Run it:
 
-| Platform | File |
-|---|---|
-| Linux (x86_64) | `seekrs-x86_64-unknown-linux-gnu.tar.gz` |
-| macOS (Intel) | `seekrs-x86_64-apple-darwin.tar.gz` |
-| macOS (Apple Silicon) | `seekrs-aarch64-apple-darwin.tar.gz` |
-| Windows | `seekrs-x86_64-pc-windows-msvc.zip` |
-
-**Linux / macOS:**
-```bash
-tar -xzf seekrs-*.tar.gz
-chmod +x seekrs
-sudo mv seekrs /usr/local/bin/
+```powershell
+.\seekrs.exe --help
+.\seekrs.exe --name "main"
+.\seekrs.exe --tree
 ```
 
-**Windows:** Extract the `.zip` and run `seekrs.exe` from PowerShell or Command Prompt.
+> **To use `seekrs` from any folder (recommended):**
+> 1. Move `seekrs.exe` to a permanent location e.g. `C:\Tools\`
+> 2. Search **"Environment Variables"** in the Start menu
+> 3. Click **"Edit the system environment variables"** → **Environment Variables**
+> 4. Under **System variables**, select `Path` → **Edit** → **New**
+> 5. Add `C:\Tools\` → click OK
+> 6. Restart your terminal — now you can run `seekrs` from anywhere
 
 ---
 
-### Option 2 — Install via Cargo (requires Rust)
+### macOS
+
+```bash
+# Download and extract
+curl -L https://github.com/DTS-11/seekrs/releases/latest/download/seekrs-aarch64-apple-darwin.tar.gz | tar -xz
+
+# Make executable and move to PATH
+chmod +x seekrs
+sudo mv seekrs /usr/local/bin/
+
+# Run
+seekrs --help
+```
+
+> Use `seekrs-x86_64-apple-darwin.tar.gz` if you have an older Intel Mac.
+
+> **Note:** On first run macOS may block it. Go to **System Settings → Privacy & Security** and click **"Allow Anyway"**.
+
+---
+
+### Linux
+
+```bash
+# Download and extract
+curl -L https://github.com/DTS-11/seekrs/releases/latest/download/seekrs-x86_64-unknown-linux-gnu.tar.gz | tar -xz
+
+# Make executable and move to PATH
+chmod +x seekrs
+sudo mv seekrs /usr/local/bin/
+
+# Run
+seekrs --help
+```
+
+---
+
+### Via Cargo (requires Rust)
 
 ```bash
 cargo install seekrs
@@ -83,7 +123,7 @@ cargo install seekrs
 
 ---
 
-### Option 3 — Build from source
+### Build from source
 
 ```bash
 git clone https://github.com/DTS-11/seekrs
@@ -126,13 +166,33 @@ seekrs [OPTIONS]
   -V, --version              Print version
 ```
 
+> **Windows users:** prefix with `.\seekrs.exe` if seekrs isn't in your PATH yet, or just `seekrs` if you've added it to your PATH.
+
 ---
 
 ## Examples
 
+All examples below work on Linux and macOS as-is. On Windows, replace `seekrs` with `.\seekrs.exe` (or just `seekrs` if it's in your PATH), and replace paths like `~/Downloads` with `C:\Users\YourName\Downloads`.
+
 ### Basic name search
 ```bash
+# Linux / macOS
 seekrs --name "config"
+
+# Windows (before adding to PATH)
+.\seekrs.exe --name "config"
+
+# Windows (after adding to PATH)
+seekrs --name "config"
+```
+
+### Search a specific directory
+```bash
+# Linux / macOS
+seekrs --dir ~/projects --name "main"
+
+# Windows
+seekrs --dir "C:\Users\YourName\projects" --name "main"
 ```
 
 ### Fuzzy search — finds results even with typos
@@ -178,14 +238,22 @@ seekrs --tree --ext rs
 
 ### Find duplicate files
 ```bash
+# Linux / macOS
 seekrs --duplicates --dir ~/Downloads
+
+# Windows
+seekrs --duplicates --dir "C:\Users\YourName\Downloads"
 ```
 
 ### Open result in an editor
 ```bash
+# Linux / macOS
 seekrs --name "main.rs" --open vim
-seekrs --name "main.rs" --open code
 seekrs --name "main.rs" --open nano
+
+# Windows — use notepad, or any editor in your PATH
+seekrs --name "main.rs" --open notepad
+seekrs --name "main.rs" --open code        # VS Code
 ```
 
 ### Sort and limit results
