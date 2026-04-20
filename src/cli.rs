@@ -86,4 +86,8 @@ pub struct Args {
     /// Sort results by: name | size | date
     #[arg(long, default_value = "name")]
     pub sort: String,
+
+    /// Upgrade to the latest version
+    #[arg(long)]
+    pub upgrade: bool,
 }
