@@ -6,7 +6,7 @@ pub fn print_banner() {
     println!("{}", "║                                                      ║".cyan().bold());
     println!("{}{}{}",
         "║  ".cyan().bold(),
-        " 🔍  S E E K . R S  —  v0.1.1              ".white().bold(),
+        " 🔍  S E E K . R S  —  v0.2.0              ".white().bold(),
         "║".cyan().bold()
     );
     println!("{}", "║     blazing fast · colorful · feature-rich           ║".cyan().dimmed());
