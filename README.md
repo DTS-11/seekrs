@@ -277,7 +277,7 @@ seekrs produces colorized, emoji-rich output designed to be fast to scan:
 ```
 ╔══════════════════════════════════════════════════════╗
 ║                                                      ║
-║   🔍  S E E K R S  —  v0.1.0                       ║
+║   🔍  S E E K R S  —  v0.1.1                       ║
 ║     blazing fast · colorful · feature-rich           ║
 ╚══════════════════════════════════════════════════════╝
 
